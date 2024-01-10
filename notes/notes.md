@@ -21,5 +21,7 @@
 
 ### Check Github
 
+```sh
 git fetch
 git status
+```
