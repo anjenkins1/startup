@@ -25,3 +25,18 @@
 git fetch
 git status
 ```
+
+## Web Server
+
+```md
+ip address for ![webserver](http://52.22.29.30/):
+
+52.22.29.30
+```
+Command for ssh
+
+```sh
+
+ssh -i ~/keys/production.pem ubuntu@52.22.29.30
+
+```
