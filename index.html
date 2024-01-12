@@ -10,7 +10,8 @@
   <body>
     <!-- Use header, main, and footer elements to give semantic structure -->
     <header>
-      <h1>Benchrat<sup>&reg;</sup></h1>
+      <h1>Benchrat</h1>
+      <img src="assets/favicon.png" />
 
       <!-- Navigation elements -->
       <nav>
@@ -29,11 +30,20 @@
 
     <main>
       <h1>Welcome</h1>
-      <p>Login to start calculating</p>
+      <p>Login to start designing your reactions</p>
       <form method="get" action="play.html">
-        <label for="name">Name</label>
-        <input type="text" id="name" placeholder="Your name here" />
-        <button type="submit">Login</button>
+        <div class="avatar_container">
+            <img src="assets/avatar.png"/>
+        </div>
+        <div class="login_container">
+            <label for="username">Username</label>
+            <input type="text" id="username" placeholder="Your username here" />
+
+            <label for="password">Password</label>
+            <input type="text" id="password" placeholder="Your password here" />
+
+            <button type="submit">Login</button>
+          </div>
       </form>
     </main>
 
