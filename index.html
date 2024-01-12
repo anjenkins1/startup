@@ -1,44 +1,47 @@
-<body>
-    <p>Body</p>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Tell browsers not to scale the viewport automatically -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Benchrat</title>
+    <link rel="icon" href="assets/favicon.png"  />
+  </head>
+  <body>
+    <!-- Use header, main, and footer elements to give semantic structure -->
     <header>
-      <p>Header - <span>Span</span></p>
+      <h1>Benchrat<sup>&reg;</sup></h1>
+
+      <!-- Navigation elements -->
       <nav>
-        Navigation
-        <div>Div</div>
-        <div>Div</div>
+        <!-- Menu is a semantic alternative to <ul> that represents an interaction -->
+        <menu>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="calculator.html">Calculator</a></li>
+          <li><a href="saves.html">History</a></li>
+          <li><a href="about.html">About</a></li>
+        </menu>
       </nav>
+
+      <!-- Since we don't have the ability to style we use old style HTML to give some visual formatting -->
+      <hr />
     </header>
-  
+
     <main>
-      <section>
-        <p>Section</p>
-        <ul>
-          <li>List</li>
-          <li>List</li>
-          <li>List</li>
-        </ul>
-      </section>
-      <section>
-        <p>Section</p>
-        <table>
-          <tr>
-            <th>Table</th>
-            <th>Table</th>
-            <th>Table</th>
-          </tr>
-          <tr>
-            <td>table</td>
-            <td>table</td>
-            <td>table</td>
-          </tr>
-        </table>
-      </section>
-      <aside>
-        <p>Aside</p>
-      </aside>
+      <h1>Welcome</h1>
+      <p>Login to start calculating</p>
+      <form method="get" action="play.html">
+        <label for="name">Name</label>
+        <input type="text" id="name" placeholder="Your name here" />
+        <button type="submit">Login</button>
+      </form>
     </main>
-  
+
     <footer>
-      <div>Footer - <span>Span</span></div>
+      <hr />
+      <span class="text-reset">Andrew Jenkins</span>
+      <br />
+      <a href="https://github.com/anjenkins1/startup">GitHub</a>
     </footer>
   </body>
+</html>
