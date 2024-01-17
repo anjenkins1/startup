@@ -30,8 +30,30 @@
 
     <main>
       <h1>Saved Reactions</h1>
-      
-
+      <table id="tbl_saves">
+        <tr>
+          <th>Forward Primer</th>
+          <th>Reverse Primer</th>
+          <th>Fragment Size (bp)</th>
+          <th>Polymerase Used</th>
+          <th>Reaction Conditions</th>
+        </tr>
+        <tr>
+          <td>sfGFP_F</td>
+          <td>sfGFP_R</td>
+          <td>789</td>
+          <td>Q5</td>
+          <td>2-Step: 68C for 30 seconds</td>
+        </tr>
+        <tr>
+          <td>pMinit2.0_F</td>
+          <td>pMinit2.0_R</td>
+          <td>1500</td>
+          <td>Taq</td>
+          <td>3-Step: 58C for 15 seconds, 72 for 1 minute</td>
+        </tr>
+      </table>
+      <button id="button_export">Export Selected Rows</button>
     </main>
 
     <footer>
