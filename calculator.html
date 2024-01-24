@@ -26,19 +26,74 @@
 
     <main>
       <h1>Reaction Calculator</h1>
-      <input type="text" id="forward_primer" placeholder="Forward Primer" />
-      <input type="text" id="forward_primer" placeholder="Reverse Primer" />
-      <label for="poly_select">Choose a polymerase:</label>
-        <select name="poly_select" id="poly_select">
-          <option value="Q5">Q5</option>
-          <option value="TAQ">TAQ</option>
+      <div>
+        <span class="label">Forward Primer</span>
+        <br>
+        <input type="text" id="forward_primer" placeholder="Forward Primer" />
+        <br>
+        <span class="label">Reverse Primer</span>
+        <br>
+        <input type="text" id="forward_primer" placeholder="Reverse Primer" />
+        <br>
+        <label for="poly_select">Choose a polymerase:</label>
+          <select name="poly_select" id="poly_select">
+            <option value="Q5">Q5</option>
+            <option value="TAQ">TAQ</option>
+          </select>
+        <br>
+        <label for="pcr_len">Expected Product Size</label>
+        <input type="int" id="pcr_len" />
+        <select name="pcr_len_select" id="pcr_len_select">
+          <option value="kb">kb</option>
+          <option value="bp">bp</option>
         </select>
-      <label for="pcr_len">Expected Product Size</label>
-      <input type="int" id="pcr_len" />
-      <select name="pcr_len_select" id="pcr_len_select">
-        <option value="kb">kb</option>
-        <option value="bp">bp</option>
-      </select>
+      </div>
+
+      <div>
+        <div>
+          <span class="label">Annealing Temperature</span>
+          <br>
+          <strong>-- Tm(C)</strong>
+        </div>
+        <div>
+          <span class="label">Forward Primer</span>
+          <br>
+          <strong>-- nt</strong>
+          <br>
+          <strong>-- %GC</strong>
+          <br>
+          <strong>-- Tm(C)</strong>
+        </div>
+        <div>
+          <span class="label">Reverse Primer</span>
+          <br>
+          <strong>-- nt</strong>
+          <br>
+          <strong>-- %GC</strong>
+          <br>
+          <strong>-- Tm(C)</strong>
+        </div>
+        <div>
+          <table id="tbl_saves">
+            <tr>
+              <th>Forward Primer</th>
+              <th>Reverse Primer</th>
+              <th>Fragment Size (bp)</th>
+              <th>Polymerase Used</th>
+              <th>Reaction Conditions</th>
+            </tr>
+            <tr>
+              <td>sfGFP_F</td>
+              <td>sfGFP_R</td>
+              <td>789</td>
+              <td>Q5</td>
+              <td>2-Step: 68C for 30 seconds</td>
+            </tr>
+          </table>
+          <input type="button" id="save_reaction" value="Save Reaction" />
+        </div>
+      </div>
+
     </main>
 
     <footer>
