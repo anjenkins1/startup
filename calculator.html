@@ -26,13 +26,19 @@
 
     <main>
       <h1>Reaction Calculator</h1>
-      <input type="text" id="forward_primer" value="Forward Primer" />
-      <input type="text" id="forward_primer" value="Reverse Primer" />
+      <input type="text" id="forward_primer" placeholder="Forward Primer" />
+      <input type="text" id="forward_primer" placeholder="Reverse Primer" />
       <label for="poly_select">Choose a polymerase:</label>
         <select name="poly_select" id="poly_select">
           <option value="Q5">Q5</option>
           <option value="TAQ">TAQ</option>
         </select>
+      <label for="pcr_len">Expected Product Size</label>
+      <input type="int" id="pcr_len" />
+      <select name="pcr_len_select" id="pcr_len_select">
+        <option value="kb">kb</option>
+        <option value="bp">bp</option>
+      </select>
     </main>
 
     <footer>
