@@ -1,5 +1,5 @@
 
-## ![Class Notes](notes/notes.md)
+## [Class Notes](notes/notes.md)
 
 # benchrat
 Startup Application for CS 260
