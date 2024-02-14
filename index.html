@@ -14,51 +14,72 @@
     crossorigin="anonymous">
   </head>
 
-  <body class="bg-dark text-light">
+  <body class="bg-light text-dark">
     <!-- Use header, main, and footer elements to give semantic structure -->
-    <header class="container-fluid text-center">
-      <h1>Benchrat</h1>
-      <img src="assets/favicon.png" />
-
+    <header class="container-fluid text-center text-light">
       <!-- Navigation elements -->
-      <nav class="navbar navbar-expand navbar-dark bg-dark">
+      <nav class="navbar navbar-expand navbar-light">
+        <a class="navbar-brand" href="index.html">
+          <img src="assets/favicon.png" width="50" height="50"/>
+        </a>
         <!-- Menu is a semantic alternative to <ul> that represents an interaction -->
         <menu class="navbar-nav">
-          <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="calculator.html">Calculator</a></li>
-          <li class="nav-item"><a class="nav-link" href="saves.html">Saved Reactions</a></li>
-          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link text-light active" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link text-light" href="calculator.html">Calculator</a></li>
+          <li class="nav-item"><a class="nav-link text-light" href="saves.html">Saved Reactions</a></li>
+          <li class="nav-item"><a class="nav-link text-light" href="about.html">About</a></li>
         </menu>
       </nav>
-
-      <!-- Since we don't have the ability to style we use old style HTML to give some visual formatting -->
-      <hr />
     </header>
 
     <main>
-      <h1>Welcome</h1>
-      <p>Login to start designing your reactions</p>
-      <div class="avatar_container">
-        <img src="assets/avatar.png"/>
-      </div>
-      <form method="get" action="calculator.html">
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input type="username" id="username" placeholder="Your username here" />
-        <div class = "form-group">
-          <label for="password">Password</label>
-          <input type="password" id="password" placeholder="Your password here" />
+
+      <div class="container w-25 p-3">
+        <div class="row">
+          <div class="text-center justify-content-start text-dark">
+            <h1 class="text-dark display-4">Benchrat</h1>
+            <p class="text-dark lead">Login to start calculating your PCR reactions</p>
+            <img src="assets/avatar.png" width="250" height="250"/>
+            </div>
+          </div>
+          <form class="row">
+            <div class="col-md-6 mb-3">
+              <label for="username" class="form-label">Username</label>
+              <input type="username" class="form-control" id="username" >
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" id="password">
+            </div>
+            <div class="col-md-6">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
         </div>
-          <button type="submit" class="btn btn-light">Login</button>
+      </div>
       </form>
     </main>
 
-    <footer>
-      <hr />
-      <span class="text-reset">Andrew Jenkins</span>
-      <br />
-      <a href="https://github.com/anjenkins1/startup">GitHub</a>
-      <a href="https://www.flaticon.com/free-icons/rat" title="rat icons">Rat icons created by Freepik - Flaticon</a>
-    </footer>
+    <!-- <footer class="container-fluid">
+      <div class="row">
+        <div class="col-md-4">
+          <span class="text-reset">Andrew Jenkins</span>
+        </div>
+        <div class="col-md-4">
+          <a href="https://github.com/anjenkins1/startup">GitHub</a>
+        </div>
+        <div class="col-md-4">
+          <a href="https://www.flaticon.com/free-icons/rat" title="rat icons">Rat icons created by Freepik - Flaticon</a>
+        </div>
+      </div>
+    </footer> -->
+      <footer class="d-flex flex-wrap py-4">
+        <p class="col-md-4 mb-0 text-light">© 2024 Andrew Jenkins</p>
+    
+        <ul class="nav col-md-4 justify-content-center">
+          <li class="nav-item"><a href="https://github.com/anjenkins1/startup" class="nav-link px-2 text-light">Github</a></li>
+          <li class="nav-item"><a href="https://www.flaticon.com/free-icons/rat" class="nav-link px-2 text-light">Rat icons created by Freepik - Flaticon</a></li>
+        </ul>
+
+
   </body>
 </html>
