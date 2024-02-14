@@ -7,7 +7,18 @@ body {
   header {
     flex: 0 80px;
   }
-  
+
+  h1 {
+    color:cornsilk;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+
+  p {
+    color: cornsilk;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 150%;
+  }
+
   main {
     flex: 1 calc(100vh - 110px);
     display: flex;
@@ -34,7 +45,7 @@ body {
   }
   
   menu .nav-item {
-    padding: 0 0.3em;
+    padding: 0 0.5em;
   }
   
   footer a {
