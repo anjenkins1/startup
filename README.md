@@ -54,3 +54,13 @@ I am going to use the required technologies in the following ways.
   - **Images** - There is an avatar image for the login screen and a rat image for decoration of every page
   - **DB/Login** - Input boxes for PCR names and primers with the ability to save the calculations and access them when saved by the user
   - **WebSocket** - As sequences are added to the primer input field, the TM will automatically update
+
+## HTML deliverable
+
+### For this deliverable I properly styled the application into its final appearance.
+  - **Header, footer, and main content body**
+  - **Navigation elements** - I changed the colors to match an overall theme that carries throughout my site
+  - **Responsive to window resizing** - My app looks great on all window sizes and devices
+  - **Application elements** - Used good contrast and whitespace
+  - **Application text content** - Consistent fonts
+  - **Application images** - Added circled avatar image and navbar brand image with rat icon
