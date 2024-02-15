@@ -6,91 +6,109 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Benchrat</title>
     <link rel="icon" href="assets/favicon.png"  />
+    <link rel="stylesheet" href="styles/main.css" />
+    <!-- Include bootstrap CSS framework -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
+    rel="stylesheet" 
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" 
+    crossorigin="anonymous">
   </head>
-  <body>
-    <header>
-      <h1>Benchrat</h1>
-      <img src="assets/favicon.png" />
 
+  <body class="bg-light text-dark">
+    <!-- Use header, main, and footer elements to give semantic structure -->
+    <header class="container-fluid text-center text-light">
       <!-- Navigation elements -->
-      <nav>
-        <menu>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="calculator.html">Calculator</a></li>
-          <li><a href="saves.html">Saved Reactions</a></li>
-          <li><a href="about.html">About</a></li>
+      <nav class="navbar navbar-expand navbar-light">
+        <a class="navbar-brand" href="index.html">
+          <img src="assets/favicon.png" width="50" height="50"/>
+        </a>
+        <!-- Menu is a semantic alternative to <ul> that represents an interaction -->
+        <menu class="navbar-nav">
+          <li class="nav-item"><a class="nav-link text-light" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link active" href="calculator.html">Calculator</a></li>
+          <li class="nav-item"><a class="nav-link text-light" href="saves.html">Saved Reactions</a></li>
+          <li class="nav-item"><a class="nav-link text-light" href="about.html">About</a></li>
         </menu>
       </nav>
-      <hr />
     </header>
 
     <main>
-      <h1>Reaction Calculator</h1>
-      <div>
-        <span class="label">Forward Primer Name</span>
-        <br>
-        <input type="text" id="forward_primer_name" placeholder="Forward Primer Name" />
-        <br>
-        <span class="label">Forward Primer</span>
-        <br>
-        <input type="text" id="forward_primer" placeholder="Forward Primer" />
-        <br>
-        <span class="label">Reverse Primer Name</span>
-        <br>
-        <input type="text" id="reverse_primer_name" placeholder="Reverse Primer Name" />
-        <br>
-        <span class="label">Reverse Primer</span>
-        <br>
-        <input type="text" id="reverse_primer" placeholder="Reverse Primer" />
-        <br>
-        <label for="poly_select">Choose a polymerase:</label>
-          <select name="poly_select" id="poly_select">
-            <option value="Q5">Q5</option>
-            <option value="TAQ">TAQ</option>
-          </select>
-        <br>
-        <label for="pcr_len">Expected Product Size</label>
-        <input type="int" id="pcr_len" />
-        <select name="pcr_len_select" id="pcr_len_select">
-          <option value="kb">kb</option>
-          <option value="bp">bp</option>
-        </select>
-      </div>
-
-      <div>
-        <!--Web Socket Elements, the Tm's, nt's, and GC content will update as primer sequences are added-->
-        <div>
-          <span class="label">Annealing Temperature</span>
-          <br>
-          <strong>-- Tm(C)</strong>
+      <div class="container">
+        <div class="row justify-content-md-center text-center">
+            <h1 class="display-7">Reaction Calculator</h1>
         </div>
+        <form>
+          <div class="row justify-content-center p-3">
+            <div class="col-md-3">
+              <label for="forward_primer_name" class="form-label">Forward Primer Name</label>
+              <input type="text" class="form-control" id="forward_primer_name" >
+            </div>
+            <div class="col-md-4">
+              <label for="forward_primer" class="form-label">Forward Primer</label>
+              <input type="text" class="form-control" id="forward_primer" >
+            </div>
+            <div class="col-md-3">
+              <label for="forward_data" class="form-label"><strong>Forward Data</strong></label>
+              <div class="card" style="width: 8rem;">
+                <div class="card-body">
+                  <strong>-- nt</strong>
+                  <br>
+                  <strong>-- %GC</strong>
+                  <br>
+                  <strong>-- Tm(C)</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-center p-3">
+            <div class="col-md-3">
+              <label for="reverse_primer_name" class="form-label">Reverse Primer Name</label>
+              <input type="text" class="form-control" id="reverse_primer_name" >
+            </div>
+            <div class="col-md-4">
+              <label for="reverse_primer" class="form-label">Reverse Primer</label>
+              <input type="text" class="form-control" id="reverse_primer" >
+            </div>
+            <div class="col-md-3">
+              <label for="reverse_data" class="form-label"><strong>Reverse Data</strong></label>
+              <div class="card" style="width: 8rem;">
+                <div class="card-body">
+                  <strong>-- nt</strong>
+                  <br>
+                  <strong>-- %GC</strong>
+                  <br>
+                  <strong>-- Tm(C)</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-center text-center p-3">
+            <div class="col-md-4">
+              <label for="poly_select">Choose a polymerase:</label>
+              <select name="poly_select" id="poly_select">
+                <option value="Q5">Q5</option>
+                <option value="TAQ">TAQ</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <label for="pcr_len">Expected Product Size:</label>
+              <input type="int" id="pcr_len" />
+              <select name="pcr_len_select" id="pcr_len_select">
+                <option value="kb">kb</option>
+                <option value="bp">bp</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <label class="label">Reaction Conditions:</label>
+              <select name="rxn_select" id="rxn_select">
+                <option value="2-Step">2-Step</option>
+                <option value="3-Step">3-Step</option>
+              </select>
+            </div>
+          </div>
+        </form>
         <div>
-          <span class="label">Forward Primer</span>
-          <br>
-          <strong>-- nt</strong>
-          <br>
-          <strong>-- %GC</strong>
-          <br>
-          <strong>-- Tm(C)</strong>
-        </div>
-        <div>
-          <span class="label">Reverse Primer</span>
-          <br>
-          <strong>-- nt</strong>
-          <br>
-          <strong>-- %GC</strong>
-          <br>
-          <strong>-- Tm(C)</strong>
-        </div>
-        
-        <div>
-          <span class="label">Reaction Conditions</span>
-          <br>
-          <select name="rxn_select" id="rxn_select">
-            <option value="2-Step">2-Step</option>
-            <option value="3-Step">3-Step</option>
-          </select>
-          <table id="tbl_saves">
+          <table class="table" id="tbl_saves">
             <tr>
               <th>Forward Primer Name</th>
               <th>Forward Primer</th>
@@ -110,18 +128,18 @@
               <td>2-Step: 68C for 30 seconds</td>
             </tr>
           </table>
-          <input type="button" id="save_reaction" value="Save Reaction" />
         </div>
+        <input type="button" id="save_reaction" value="Save Reaction" />
       </div>
-
     </main>
 
-    <footer>
-      <hr />
-      <span class="text-reset">Andrew Jenkins</span>
-      <br />
-      <a href="https://github.com/anjenkins1/startup">GitHub</a>
-      <a href="https://www.flaticon.com/free-icons/rat" title="rat icons">Rat icons created by Freepik - Flaticon</a>
+    <footer class="d-flex flex-wrap py-4">
+      <p class="col-md-4 mb-0 text-light">© 2024 Andrew Jenkins</p>
+  
+      <ul class="nav col-md-4 justify-content-center">
+        <li class="nav-item"><a href="https://github.com/anjenkins1/startup" class="nav-link px-2 text-light">Github</a></li>
+        <li class="nav-item"><a href="https://www.flaticon.com/free-icons/rat" class="nav-link px-2 text-light">Rat icons created by Freepik - Flaticon</a></li>
+      </ul>
     </footer>
   </body>
 </html>
