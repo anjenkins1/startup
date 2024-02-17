@@ -40,9 +40,9 @@
             <h1 class="text-dark display-4">Benchrat</h1>
             <p class="text-dark lead">Login to start calculating your PCR reactions</p>
             <img src="assets/avatar.png" class="rounded-circle pb-3"  width="250" height="250"/>
-            </div>
           </div>
-          <form class="row">
+        </div>
+          <div class="row">
             <div class="col-md-6 mb-3">
               <label for="username" class="form-label">Username</label>
               <input type="username" class="form-control" id="username" >
@@ -51,14 +51,16 @@
               <label for="password" class="form-label">Password</label>
               <input type="password" class="form-control" id="password">
             </div>
+          </div>
+          <div class = row>
             <div class="col-md-6">
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" class="btn btn-primary" onclick="login()">Login</button>
             </div>
-        </div>
+          </div>
       </div>
-      </form>
     </main>
 
+    <script src="/js/login.js"></script>
     <footer class="d-flex flex-wrap py-4">
       <p class="col-md-4 mb-0 text-light">© 2024 Andrew Jenkins</p>
   

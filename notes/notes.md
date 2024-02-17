@@ -40,3 +40,10 @@ Command for ssh
 ssh -i ~/keys/production.pem ubuntu@52.22.29.30
 
 ```
+Deploy site on webserver
+
+```sh
+
+./deployFiles.sh -k ${key} -h ${hostname} -s ${site}
+
+```
