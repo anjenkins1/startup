@@ -73,4 +73,6 @@ body {
       flex: 1 100vh;
     }
   }
+
+  td { white-space:pre }
   

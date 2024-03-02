@@ -1,33 +1,38 @@
 document.addEventListener("DOMContentLoaded", function() {
     // Function to update Tm value in the UI
     function updateTm(inputElement, tmElement) {
-      let sequence = inputElement.value.toUpperCase();
+      let sequence = inputElement.value.toUpperCase()
+      tmElement.innerHTML = tm_calc(sequence) + "°C";
+    }
 
-      let A_count = (sequence.match(/A/g) || []).length;
-      let T_count = (sequence.match(/T/g) || []).length;
-      let G_count = (sequence.match(/G/g) || []).length;
-      let C_count = (sequence.match(/C/g) || []).length;
-  
-      let tm = (A_count + T_count) * 2 + (G_count + C_count) * 4;
-      tmElement.innerHTML = tm + "°C";
+    function tm_calc(primer) {
+
+      const A_count = (primer.match(/A/g) || []).length;
+      const T_count = (primer.match(/T/g) || []).length;
+      const G_count = (primer.match(/G/g) || []).length;
+      const C_count = (primer.match(/C/g) || []).length;
+
+      let tm = 0
+
+      if (primer.length < 14) {
+        tm = (A_count + T_count) * 2 + (G_count + C_count) * 4
+      } else {
+        tm = Math.round(64.9 + 41 * (G_count + C_count - 16.4) / primer.length)
+      }
+
+      return tm
     }
 
     // Function to update GC value in the UI
     function updateGC(inputElement, gcElement) {
         let sequence = inputElement.value.toUpperCase();
-        let gcCount = 0;
         let totalCount = sequence.length;
       
-        // Loop through each character in the sequence
-        for (let i = 0; i < totalCount; i++) {
-          // Count occurrences of 'G' and 'C'
-          if (sequence[i] === 'G' || sequence[i] === 'C') {
-            gcCount++;
-          }
-        }
+        const G_count = (sequence.match(/G/g) || []).length;
+        const C_count = (sequence.match(/C/g) || []).length;
       
         // Calculate the percentage of GC content
-        let gcPercentage = (gcCount / totalCount) * 100;
+        let gcPercentage = ((G_count + C_count) / totalCount) * 100;
       
         // Update the UI with the calculated GC content
         gcElement.innerHTML = gcPercentage.toFixed(2) + "% GC";
@@ -39,6 +44,52 @@ document.addEventListener("DOMContentLoaded", function() {
         let ntLength = sequence.length
 
         ntElement.innerHTML = ntLength + " nt"
+    }
+
+    function extensionTime(polymerase, length) {
+      let time = 1
+      if(polymerase == "Q5") {
+        time = 0.02 * length
+      }
+      else {
+        time = 0.06 * length 
+      }
+
+      return (Math.floor(time / 60) + " min " + (time % 60) + " sec")
+    }
+
+    function reactionConditionCalculator(components) {
+      forP = components.forward_primer
+      revP = components.reverse_primer
+      pol = components.polymerase
+      fragSize = components.fragment_size
+      rxnSteps = components.reaction_step_size
+
+      const tm_F = tm_calc(forP)
+      const tm_R = tm_calc(revP)
+      let anneal_temp = Math.min(tm_F, tm_R)
+      let extension_time = 60 //C
+      let extension_temp = 68 //seconds
+
+      if (pol == "Q5") {
+        anneal_temp += 5;
+        extension_time = 20 //seconds
+        extension_temp = 72 //C
+      }
+
+      if (rxnSteps == "2-Step") {
+        middle_steps = ("2-step, 30x:" + "<br>" + 
+                        "98C for 15 sec" + "<br>" + 
+                        anneal_temp + "C for " + extensionTime(pol, fragSize))
+      } else {
+        middle_steps = ("3-step, 30x:" + "<br>" + 
+                        "98C for 10 sec" + "<br>" + 
+                        anneal_temp + "C for 20 seconds" + "<br>" + 
+                        extension_temp + "C for " + extensionTime(pol, fragSize))
+      }
+
+      return(middle_steps)
+
     }
   
     // Get input and card elements
@@ -72,15 +123,105 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
 
+    // Get the calculate reaction button
+    var calcButton = document.getElementById("calculate_btn");
+    
     // Get the save reaction button
-    const saveButton = document.getElementById("save_reaction");
+    var saveButton = document.getElementById("save_reaction");
 
-    // Add event listener to the save reaction button
-    saveButton.addEventListener("click", function(event) {
-    event.preventDefault(); // Prevent the default form submission behavior
-    // Your code to handle saving the reaction goes here
-    alert("Reaction saved!");
+    let bufferReaction = {};
+
+    // Add event listener to the calculate reaction button
+    calcButton.addEventListener("click", function(event) {
+      event.preventDefault(); // Prevent the default form submission behavior
+
+      // Retrieve values entered by the user
+      var forwardPrimerName = document.getElementById("forward_primer_name").value;
+      var forwardPrimer = document.getElementById("forward_primer").value.toUpperCase();
+      var reversePrimerName = document.getElementById("reverse_primer_name").value;
+      var reversePrimer = document.getElementById("reverse_primer").value.toUpperCase();
+      var fragmentSize = document.getElementById("pcr_len").value;
+      var bp_kb = document.getElementById("pcr_len_select").value;
+      if (bp_kb === "kb") {
+        fragmentSize = fragmentSize * 1000
+      }
+      console.log(fragmentSize)
+      var polymerase = document.getElementById("poly_select").value;
+      var reactionConditions = document.getElementById("rxn_select").value;
+
+      // Insert a new row into the table with these values
+      var table = document.getElementById("tbl_saves");
+      var newRow = table.insertRow(-1); // Insert at the end of the table
+      table.deleteRow(1)
+
+      // Insert cells into the new row
+      var cell1 = newRow.insertCell(0);
+      var cell2 = newRow.insertCell(1);
+      var cell3 = newRow.insertCell(2);
+      var cell4 = newRow.insertCell(3);
+      var cell5 = newRow.insertCell(4);
+      var cell6 = newRow.insertCell(5);
+      var cell7 = newRow.insertCell(6);
+
+      let components = {
+        forward_primer: forwardPrimer,
+        reverse_primer: reversePrimer,
+        fragment_size: fragmentSize,
+        polymerase: polymerase,
+        reaction_step_size: reactionConditions,
+      }
+
+      // Set the inner HTML of the cells to the user-entered values
+      cell1.innerHTML = forwardPrimerName;
+      cell2.innerHTML = forwardPrimer;
+      cell3.innerHTML = reversePrimerName;
+      cell4.innerHTML = reversePrimer;
+      cell5.innerHTML = fragmentSize;
+      cell6.innerHTML = polymerase;
+      cell7.innerHTML = reactionConditionCalculator(components);
+
+      bufferReaction = {
+        forward_name: cell1.innerHTML,
+        forward_primer: cell2.innerHTML,
+        reverse_name: cell3.innerHTML,
+        reverse_primer: cell4.innerHTML,
+        fragment_size: cell5.innerHTML,
+        polymerase: cell6.innerHTML,
+        reaction_cond: cell7.innerHTML,
+      }
+
+      // Reset the form fields
+      // document.getElementById("forward_primer_name").value = "";
+      // document.getElementById("forward_primer").value = "";
+      // document.getElementById("reverse_primer_name").value = "";
+      // document.getElementById("reverse_primer").value = "";
+      // document.getElementById("pcr_len").value = "";
+      // document.getElementById("poly_select").value = "";
+      // document.getElementById("rxn_select").value = "";
+
+      // Display a confirmation message
+      // alert("Reaction saved!");
     });
+
+    saveButton.addEventListener("click", function(event) {
+      saveReaction();
+    });
+
+    function getUsername () {
+      return localStorage.getItem('userName') ?? 'Unknown Scientist'
+    }
+
+    function saveReaction() {
+      const userName = getUsername();
+      let rxns = [];
+      const rxnsText = localStorage.getItem('rxns')
+      if (rxnsText) {
+        rxns = JSON.parse(rxnsText)
+      }
+      const newReaction = { user: userName, reaction: bufferReaction}
+      rxns.push(newReaction)
+      localStorage.setItem('rxns', JSON.stringify(rxns))
+    }
   });
 
   
