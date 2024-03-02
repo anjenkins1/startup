@@ -55,21 +55,24 @@
         </div>
         <div class="row justify-content-center p-3">
           <div class="col-md-2">
-            <input class="btn btn-primary" id="save_reaction" value="Save Reaction" />
+            <input class="btn btn-primary" id="export_btn" value="Export" />
           </div>
         </div>
       </div>
     </main>
 
-    <script src="js/saves.js"></script>
-
     <footer class="d-flex flex-wrap py-4">
       <p class="col-md-4 mb-0 text-light">© 2024 Andrew Jenkins</p>
-  
       <ul class="nav col-md-4 justify-content-center">
         <li class="nav-item"><a href="https://github.com/anjenkins1/startup" class="nav-link px-2 text-light">Github</a></li>
         <li class="nav-item"><a href="https://www.flaticon.com/free-icons/rat" class="nav-link px-2 text-light">Rat icons created by Freepik - Flaticon</a></li>
       </ul>
     </footer>
+
+    <script src="js/libs/jspdf.js"></script>
+    <script src="js/libs/jspdf-autotable.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script> -->
+    <script src="js/saves.js"></script>
+    <script>if (!window.jsPDF) window.jsPDF = window.jspdf.jsPDF</script>
   </body>
 </html>

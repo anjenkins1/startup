@@ -78,13 +78,13 @@ document.addEventListener("DOMContentLoaded", function() {
       }
 
       if (rxnSteps == "2-Step") {
-        middle_steps = ("2-step, 30x:" + "<br>" + 
-                        "98C for 15 sec" + "<br>" + 
+        middle_steps = ("2-step, 30x:" + "\n" + 
+                        "98C for 15 sec" + "\n" + 
                         anneal_temp + "C for " + extensionTime(pol, fragSize))
       } else {
-        middle_steps = ("3-step, 30x:" + "<br>" + 
-                        "98C for 10 sec" + "<br>" + 
-                        anneal_temp + "C for 20 seconds" + "<br>" + 
+        middle_steps = ("3-step, 30x:" + "\n" + 
+                        "98C for 10 sec" + "\n" + 
+                        anneal_temp + "C for 20 seconds" + "\n" + 
                         extension_temp + "C for " + extensionTime(pol, fragSize))
       }
 

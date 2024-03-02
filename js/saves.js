@@ -52,26 +52,82 @@ function loadReactions() {
 
 // Create a function to add a checkbox button to a row.
 function addCheckboxButton(row, rowId) {
-  // Create a new cell at the beginning of the row.
+
   var cell = row.insertCell(0);
-
-  // Create a new checkbox button element.
   var checkbox = document.createElement("input");
-
-  // Set the type of the element to "checkbox".
   checkbox.type = "checkbox";
-
-  // Set the name and value of the checkbox button.
   checkbox.name = "checkbox_name_" + rowId;
 
-  // Append the checkbox button to the cell.
+  checkbox.addEventListener("click", function() {
+    var row = this.closest("tr");
+    console.log("Row selected: ", row);
+
+    if (rowId === "head") {
+      var checkboxes = document.querySelectorAll("input[type='checkbox']");
+      checkboxes.forEach(function(cb) {
+        if (cb !== checkbox) {
+          cb.checked = checkbox.checked;
+        }
+      });
+    }
+  });
+
   cell.appendChild(checkbox);
 }
 
-// Get all of the rows in the table.
-var rows = document.querySelectorAll("table tr");
+// Get the export reaction button
+var exportBtn = document.getElementById("export_btn");
 
-// // Loop through the rows and add a checkbox button to each one.
-// for (var i = 0; i < rows.length; i++) {
-//   addCheckboxButton(rows[i], i);
-// }  
+exportBtn.addEventListener("click", function(event) {
+    // Create a new jsPDF instance
+    var doc = new jsPDF();
+    // Get all table rows
+    var rows = document.querySelectorAll("table tr");
+    var table_rows = []
+    var table_head = []
+
+    // Iterate over each row
+    rows.forEach(function(row, index) {
+      // Get the checkbox in the row
+      var checkbox = row.querySelector("input[type='checkbox']");
+      if (index === 0) {
+        var cells = row.querySelectorAll("th:not(:first-child)");
+        // Initialize an empty array to hold row data
+        var rowData = [];
+  
+        // Iterate over each cell in the row
+        cells.forEach(function(cell) {
+          // Push cell content to rowData array
+          rowData.push(cell.textContent.trim());
+        });
+
+        table_head.push(rowData)
+      }
+
+      // Check if the checkbox is checked
+      if (checkbox && checkbox.checked && checkbox.name != "checkbox_name_head") {
+        // Get all cells in the row
+        var cells = row.querySelectorAll("td:not(:first-child)");
+
+        // Initialize an empty array to hold row data
+        var rowData = [];
+  
+        // Iterate over each cell in the row
+        cells.forEach(function(cell) {
+          // Push cell content to rowData array
+          rowData.push(cell.textContent.trim());
+        });
+        table_rows.push(rowData)
+      }
+    });
+
+    console.log(table_head)
+    console.log(table_rows)
+    
+    doc.autoTable({
+      head: table_head,
+      body: table_rows,
+      styles: {fontSize: 8 },
+    })
+    doc.save("selected_rows_data.pdf");
+});
