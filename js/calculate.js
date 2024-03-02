@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
+
+
     // Function to update Tm value in the UI
     function updateTm(inputElement, tmElement) {
       let sequence = inputElement.value.toUpperCase()
@@ -189,22 +191,11 @@ document.addEventListener("DOMContentLoaded", function() {
         polymerase: cell6.innerHTML,
         reaction_cond: cell7.innerHTML,
       }
-
-      // Reset the form fields
-      // document.getElementById("forward_primer_name").value = "";
-      // document.getElementById("forward_primer").value = "";
-      // document.getElementById("reverse_primer_name").value = "";
-      // document.getElementById("reverse_primer").value = "";
-      // document.getElementById("pcr_len").value = "";
-      // document.getElementById("poly_select").value = "";
-      // document.getElementById("rxn_select").value = "";
-
-      // Display a confirmation message
-      // alert("Reaction saved!");
     });
 
     saveButton.addEventListener("click", function(event) {
       saveReaction();
+      alert("Reaction saved!");
     });
 
     function getUsername () {
@@ -213,6 +204,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function saveReaction() {
       const userName = getUsername();
+      console.log(userName)
       let rxns = [];
       const rxnsText = localStorage.getItem('rxns')
       if (rxnsText) {
@@ -221,7 +213,43 @@ document.addEventListener("DOMContentLoaded", function() {
       const newReaction = { user: userName, reaction: bufferReaction}
       rxns.push(newReaction)
       localStorage.setItem('rxns', JSON.stringify(rxns))
+
+      const userText = document.querySelector('#user-messages');
+      userText.innerHTML =
+      `<div class="event"><span class="user-event">${userName}</span> Made a reaction</div>` + userText.innerHTML;
+
     }
+
+    function saveFakeReaction(otherUser, providedReaction) {
+      const userName = otherUser;
+      let rxns = [];
+      const rxnsText = localStorage.getItem('rxns')
+      if (rxnsText) {
+        rxns = JSON.parse(rxnsText)
+      }
+      const newReaction = { user: userName, reaction: providedReaction}
+      rxns.push(newReaction)
+      localStorage.setItem('rxns', JSON.stringify(rxns))
+      const userText = document.querySelector('#user-messages');
+      userText.innerHTML =
+        `<div class="event"><span class="user-event">${userName}</span>: Made a reaction</div>` + userText.innerHTML;
+    
+    }
+
+    let counter = 0
+    setInterval(() => {
+      counter++;
+      providedReaction = {
+        forward_name: "fake_forward_" + counter,
+        forward_primer: "AGCGCGC",
+        reverse_name: "fake_reverse_" + counter,
+        reverse_primer: "GGCTGCAAGT",
+        fragment_size: 2000,
+        polymerase: "TAQ",
+        reaction_cond: "2-Step",
+      }
+    saveFakeReaction("Fake User", providedReaction)
+    }, 15000);
   });
 
   

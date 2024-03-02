@@ -55,7 +55,7 @@ I am going to use the required technologies in the following ways.
   - **DB/Login** - Input boxes for PCR names and primers with the ability to save the calculations and access them when saved by the user
   - **WebSocket** - As sequences are added to the primer input field, the TM will automatically update
 
-## HTML deliverable
+## CSS deliverable
 
 ### For this deliverable I properly styled the application into its final appearance.
   - **Header, footer, and main content body**
@@ -64,3 +64,10 @@ I am going to use the required technologies in the following ways.
   - **Application elements** - Used good contrast and whitespace
   - **Application text content** - Consistent fonts
   - **Application images** - Added circled avatar image and navbar brand image with rat icon
+
+## JavaScript deliverable
+### For this deliverable I implemented by JavaScript so that the application works for a single user. I also added placeholders for future technology.
+  - **login** - When you press enter or the login button it takes you to the voting page and saves the current user as the reaction creator
+  - **database** - Displays the saved reactions stored in a local storage set of JSON arrays
+  - **WebSocket** - I used the setInterval function to periodically generate a random reaction. This will be replaced with WebSocket reaction calculators later.
+  - **application logic** - The reactions are calculated and stored in a format that is useful. They can also be exported in a pdf format according to which reactions are selected.
