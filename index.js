@@ -14,6 +14,17 @@ app.use(express.static('public'));
 var apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 
+// GetReactions
+apiRouter.get('/reactions', (_req, res) => {
+    res.send(reactions);
+});
+  
+// SaveReaction
+apiRouter.post('/reaction', (req, res) => {
+    reactions = updateReactions(req.body, reactions);
+    res.send(reactions);
+});
+
 // Return the application's default page if the path is unknown
 app.use((_req, res) => {
   res.sendFile('index.html', { root: 'public' });
@@ -23,3 +34,8 @@ app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
 
+let reactions = [];
+function updateReactions(newReaction, reactions) {
+    reactions.push(newReaction);
+    return reactions;
+}

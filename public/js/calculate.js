@@ -202,23 +202,39 @@ document.addEventListener("DOMContentLoaded", function() {
       return localStorage.getItem('userName') ?? 'Unknown Scientist'
     }
 
-    function saveReaction() {
+    async function saveReaction() {
       const userName = getUsername();
-      console.log(userName)
-      let rxns = [];
-      const rxnsText = localStorage.getItem('rxns')
-      if (rxnsText) {
-        rxns = JSON.parse(rxnsText)
-      }
       const newReaction = { user: userName, reaction: bufferReaction}
-      rxns.push(newReaction)
-      localStorage.setItem('rxns', JSON.stringify(rxns))
-
       const userText = document.querySelector('#user-messages');
       userText.innerHTML =
       `<div class="event"><span class="user-event">${userName}</span> Made a reaction</div>` + userText.innerHTML;
 
+      try {
+        const response = await fetch('/api/reaction', {
+          method: 'POST',
+          headers: {'content-type': 'application/json'},
+          body: JSON.stringify(newReaction),
+        });
+
+        const reactions = await response.json();
+        localStorage.setItem('rxns', JSON.stringify(reactions));
+      } catch {
+        updateRxnsLocal(newReaction);
+      }
     }
+
+    function updateRxnsLocal(newReaction) {
+        let rxns = [];
+        const rxnsText = localStorage.getItem('reactions');
+
+        if (rxnsText) {
+          rxns = JSON.parse(rxnsText);
+        }
+
+        rxns.push(newReaction);
+    
+        localStorage.setItem('reactions', JSON.stringify(reactions));
+      }
 
     function saveFakeReaction(otherUser, providedReaction) {
       const userName = otherUser;

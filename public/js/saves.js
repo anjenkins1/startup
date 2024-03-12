@@ -1,9 +1,29 @@
-function loadReactions() {
-    let rxns = [];
-    const rxnsText = localStorage.getItem('rxns');
-    if (rxnsText) {
-      rxns = JSON.parse(rxnsText);
+async function loadReactions() {
+  let reactions = [];
+  try {
+    // Get the latest high scores from the service
+    const response = await fetch('/api/scores');
+    reactions = await response.json();
+
+    // Save the reactions in case we go offline in the future
+    localStorage.setItem('reactions', JSON.stringify(reactions));
+  } catch {
+    // If there was an error then just use the last saved scores
+    const reactionsText = localStorage.getItem('reactions');
+    if (reactionsText) {
+      reactions = JSON.parse(reactionsText);
     }
+  }
+
+  displayReactions(reactions);
+}
+
+function displayReactions(rxns) {
+    // let rxns = [];
+    // const rxnsText = localStorage.getItem('rxns');
+    // if (rxnsText) {
+    //   rxns = JSON.parse(rxnsText);
+    // }
   
     const tableBodyEl = document.querySelector('#tbl_saves');
   
@@ -48,7 +68,7 @@ function loadReactions() {
     }
   }
   
-  loadReactions();
+
 
 // Create a function to add a checkbox button to a row.
 function addCheckboxButton(row, rowId) {
@@ -131,3 +151,5 @@ exportBtn.addEventListener("click", function(event) {
     })
     doc.save("selected_rows_data.pdf");
 });
+
+loadReactions();
