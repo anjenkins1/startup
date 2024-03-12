@@ -71,3 +71,11 @@ I am going to use the required technologies in the following ways.
   - **database** - Displays the saved reactions stored in a local storage set of JSON arrays
   - **WebSocket** - I used the setInterval function to periodically generate a random reaction. This will be replaced with WebSocket reaction calculators later.
   - **application logic** - The reactions are calculated and stored in a format that is useful. They can also be exported in a pdf format according to which reactions are selected.
+
+## Service deliverable
+### For this deliverable I added backend endpoints that receives reactions and returns saved reactions.
+  - **Node.js/Express HTTP service** - done!
+  - **Static middleware for frontend** - done!
+  - **Calls to third party endpoints** - About page makes calls to get a new biology image from unsplash
+  - **Backend service endpoints** - Placeholders for reaction saves on the server. Endpoints for making reactions.
+  - **Frontend calls service endpoints** - Placeholders for reaction saves on the server. Endpoints for making reactions.
