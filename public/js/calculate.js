@@ -217,7 +217,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
 
         const reactions = await response.json();
-        localStorage.setItem('rxns', JSON.stringify(reactions));
+        localStorage.setItem('reactions', JSON.stringify(reactions));
       } catch {
         updateRxnsLocal(newReaction);
       }
@@ -239,13 +239,13 @@ document.addEventListener("DOMContentLoaded", function() {
     function saveFakeReaction(otherUser, providedReaction) {
       const userName = otherUser;
       let rxns = [];
-      const rxnsText = localStorage.getItem('rxns')
+      const rxnsText = localStorage.getItem('reactions')
       if (rxnsText) {
         rxns = JSON.parse(rxnsText)
       }
       const newReaction = { user: userName, reaction: providedReaction}
       rxns.push(newReaction)
-      localStorage.setItem('rxns', JSON.stringify(rxns))
+      localStorage.setItem('reactions', JSON.stringify(reactions))
       const userText = document.querySelector('#user-messages');
       userText.innerHTML =
         `<div class="event"><span class="user-event">${userName}</span>: Made a reaction</div>` + userText.innerHTML;
