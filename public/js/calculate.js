@@ -215,7 +215,6 @@ document.addEventListener("DOMContentLoaded", function() {
           headers: {'content-type': 'application/json'},
           body: JSON.stringify(newReaction),
         });
-
         const reactions = await response.json();
         localStorage.setItem('reactions', JSON.stringify(reactions));
       } catch {

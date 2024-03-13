@@ -1,14 +1,14 @@
 async function loadReactions() {
   let reactions = [];
   try {
-    // Get the latest high scores from the service
-    const response = await fetch('/api/scores');
+    // Get the latest reactions from the service
+    const response = await fetch('/api/reactions');
     reactions = await response.json();
 
     // Save the reactions in case we go offline in the future
     localStorage.setItem('reactions', JSON.stringify(reactions));
   } catch {
-    // If there was an error then just use the last saved scores
+    // If there was an error then just use the last saved reactions
     const reactionsText = localStorage.getItem('reactions');
     if (reactionsText) {
       reactions = JSON.parse(reactionsText);
