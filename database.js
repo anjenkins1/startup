@@ -2,6 +2,7 @@ const { MongoClient } = require('mongodb');
 const bcrypt = require('bcrypt');
 const uuid = require('uuid');
 const config = require('./dbConfig.json');
+const { query } = require('express');
 
 const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
 const client = new MongoClient(url);
@@ -40,3 +41,23 @@ await userCollection.insertOne(user);
 
 return user;
 }
+
+//add reaction
+function addReaction(rxn) {
+    reactionCollection.insertOne(rxn)
+}
+
+//get reaction
+function getReactions(userName) {
+    const query = {user: userName}
+    const reactions = reactionCollection.find(query)
+    return reactions.toArray()
+}
+
+module.exports = {
+    getUser,
+    getUserByToken,
+    createUser,
+    addReaction,
+    getReactions,
+  };
