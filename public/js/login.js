@@ -47,6 +47,7 @@ function calculator() {
 
 function logout() {
   localStorage.removeItem('userName');
+  localStorage.removeItem('reactions')
   fetch(`/api/auth/logout`, {
     method: 'delete',
   }).then(() => (window.location.href = '/'));

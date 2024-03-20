@@ -2,7 +2,10 @@ async function loadReactions() {
   let reactions = [];
   try {
     // Get the latest reactions from the service
-    const response = await fetch('/api/reactions');
+    const response = await fetch('/api/reaction', {
+      headers: {'content-type': 'application/json'},
+      body: JSON.stringify({user: localStorage.getItem('userName')}),
+    });
     reactions = await response.json();
 
     // Save the reactions in case we go offline in the future

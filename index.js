@@ -51,11 +51,13 @@ apiRouter.post('/auth/login', async (req, res) => {
       return;
     }
   }
+  console.log("Unauthorized")
   res.status(401).send({ msg: 'Unauthorized' });
 });
 
 var secureApiRouter = express.Router()
 apiRouter.use(secureApiRouter)
+
 // DeleteAuth token if stored in cookie
 apiRouter.delete('/auth/logout', (_req, res) => {
   res.clearCookie(authCookieName);
@@ -85,7 +87,7 @@ secureApiRouter.use(async (req, res, next) => {
 
 // GetReactions
 secureApiRouter.get('/reactions', async (req, res) => {
-  const rxns = await DB.getReactions();
+  const rxns = await DB.getReactions(req.body.user);
   res.send(rxns);
 });
 
@@ -93,7 +95,8 @@ secureApiRouter.get('/reactions', async (req, res) => {
 secureApiRouter.post('/reaction', async (req, res) => {
   const rxn = { ...req.body, ip: req.ip };
   await DB.addReaction(rxn);
-  const rxns = await DB.getReactions();
+  const userName = req.body.user;
+  const rxns = await DB.getReactions(userName);
   res.send(rxns);
 });
 
