@@ -21,43 +21,43 @@ const reactionCollection = db.collection('reaction');
 });
 
 function getUser(email) {
-    return userCollection.findOne({ email: email });
+  return userCollection.findOne({ email: email });
 }
 
 function getUserByToken(token) {
-return userCollection.findOne({ token: token });
+  return userCollection.findOne({ token: token });
 }
 
 async function createUser(email, password) {
-// Hash the password before we insert it into the database
-const passwordHash = await bcrypt.hash(password, 10);
+  // Hash the password before we insert it into the database
+  const passwordHash = await bcrypt.hash(password, 10);
 
-const user = {
-    email: email,
-    password: passwordHash,
-    token: uuid.v4(),
-};
-await userCollection.insertOne(user);
+  const user = {
+      email: email,
+      password: passwordHash,
+      token: uuid.v4(),
+  };
+  await userCollection.insertOne(user);
 
-return user;
+  return user;
 }
 
 //add reaction
 function addReaction(rxn) {
-    reactionCollection.insertOne(rxn)
+  reactionCollection.insertOne(rxn)
 }
 
 //get reaction
 function getReactions(userName) {
-    const query = {user: userName}
-    const reactions = reactionCollection.find(query)
-    return reactions.toArray()
+  const query = {user: userName}
+  const reactions = reactionCollection.find(query)
+  return reactions.toArray()
 }
 
 module.exports = {
-    getUser,
-    getUserByToken,
-    createUser,
-    addReaction,
-    getReactions,
-  };
+  getUser,
+  getUserByToken,
+  createUser,
+  addReaction,
+  getReactions,
+};
