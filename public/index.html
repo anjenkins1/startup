@@ -33,7 +33,6 @@
     </header>
 
     <main>
-
       <div class="container-fluid w-50">
         <div class="row">
           <div class="text-center justify-content-start text-dark">
@@ -42,7 +41,28 @@
             <img src="assets/avatar.png" class="rounded-circle pb-3"  width="250" height="250"/>
           </div>
         </div>
-          <div class="row">
+        <div class="row">
+          <div id="loginControls" style="display: none">
+            <div class="input-group mb-3">
+              <span class="input-group-text">@</span>
+              <input class="form-control" type="text" id="userName" placeholder="your@email.com" />
+            </div>
+            <div class="input-group mb-3">
+              <span class="input-group-text">🔒</span>
+              <input class="form-control" type="password" id="userPassword" placeholder="password" />
+            </div>
+            <button type="button" class="btn btn-primary" onclick="loginUser()">Login</button>
+            <button type="button" class="btn btn-primary" onclick="createUser()">Create</button>
+          </div>
+          <!-- Displayed when ready to play -->
+          <div id="calculatorControls" style="display: none">
+            <div id="scientistName"></div>
+            <button type="button" class="btn btn-primary" onclick="play()">Play</button>
+            <button type="button" class="btn btn-secondary" onclick="logout()">Logout</button>
+          </div>
+        </div>
+      </div>
+          <!-- <div class="row">
             <div class="col-md-6 mb-3">
               <label for="username" class="form-label">Username</label>
               <input type="username" class="form-control" id="username" >
@@ -56,11 +76,10 @@
             <div class="col-md-6">
               <button type="submit" class="btn btn-primary" onclick="login()">Login</button>
             </div>
-          </div>
+          </div> -->
       </div>
     </main>
 
-    <script src="/js/login.js"></script>
     <footer class="d-flex flex-wrap py-4">
       <p class="col-md-4 mb-0 text-light">© 2024 Andrew Jenkins</p>
   
@@ -69,5 +88,7 @@
         <li class="nav-item"><a href="https://www.flaticon.com/free-icons/rat" class="nav-link px-2 text-light">Rat icons created by Freepik - Flaticon</a></li>
       </ul>
     </footer>
+
+    <script src="/js/login.js"></script>
   </body>
 </html>
