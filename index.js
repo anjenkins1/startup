@@ -79,6 +79,7 @@ secureApiRouter.use(async (req, res, next) => {
   authToken = req.cookies[authCookieName];
   const user = await DB.getUserByToken(authToken);
   if (user) {
+    req.user = user
     next();
   } else {
     res.status(401).send({ msg: 'Unauthorized' });
@@ -87,7 +88,9 @@ secureApiRouter.use(async (req, res, next) => {
 
 // GetReactions
 secureApiRouter.get('/reactions', async (req, res) => {
-  const rxns = await DB.getReactions(req.body.user);
+  const user = req.user.email
+  console.log(user)
+  const rxns = await DB.getReactions(user);
   res.send(rxns);
 });
 

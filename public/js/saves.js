@@ -2,9 +2,8 @@ async function loadReactions() {
   let reactions = [];
   try {
     // Get the latest reactions from the service
-    const response = await fetch('/api/reaction', {
+    const response = await fetch('/api/reactions', {
       headers: {'content-type': 'application/json'},
-      body: JSON.stringify({user: localStorage.getItem('userName')}),
     });
     reactions = await response.json();
 
@@ -70,8 +69,6 @@ function displayReactions(rxns) {
       tableBodyEl.innerHTML = '<tr><td colSpan=4>Be the first to make a reaction</td></tr>';
     }
   }
-  
-
 
 // Create a function to add a checkbox button to a row.
 function addCheckboxButton(row, rowId) {

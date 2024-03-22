@@ -47,12 +47,12 @@ function addReaction(rxn) {
   reactionCollection.insertOne(rxn)
 }
 
-//get reaction
-function getReactions(userName) {
-  const query = {user: userName}
-  const reactions = reactionCollection.find(query)
-  return reactions.toArray()
+function getReactions(user) {
+  const query = { user: user };
+  const reactions = reactionCollection.find(query);
+  return reactions.toArray();
 }
+
 
 module.exports = {
   getUser,
