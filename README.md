@@ -79,3 +79,14 @@ I am going to use the required technologies in the following ways.
   - **Calls to third party endpoints** - About page makes calls to get a new biology image from unsplash
   - **Backend service endpoints** - Placeholders for reaction saves on the server. Endpoints for making reactions.
   - **Frontend calls service endpoints** - Placeholders for reaction saves on the server. Endpoints for making reactions.
+
+## DB/Login deliverable
+### For this deliverable I associate reactions with the logged in user. I stored the reactions in the database.
+
+  - **MongoDB Atlas database created** - done!
+  - **Stores data in MongoDB** - done!
+  - **User registration** - Creates a new account in the database.
+  - **existing user** - Stores the reactions under the same user if the user already exists.
+  - **Use MongoDB to store credentials** - Stores both user and their reactions.
+  - **Restricts functionality** - You cannot make any reactions until you've logged in or created an account
+
