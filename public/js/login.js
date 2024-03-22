@@ -4,9 +4,16 @@
     document.querySelector('#scientistName').textContent = userName;
     setDisplay('loginControls', 'none');
     setDisplay('calculatorControls', 'block');
+    setDisplay('user-options1', 'block')
+    setDisplay('user-options2', 'block')
+    setDisplay('user-options3', 'block')
+    document.querySelector(`#user-option-nav-active`).className = 'nav-link active';
   } else {
     setDisplay('loginControls', 'block');
     setDisplay('calculatorControls', 'none');
+    setDisplay('user-options1', 'none')
+    setDisplay('user-options2', 'none')
+    setDisplay('user-options3', 'none')
   }
 })();
 
@@ -59,7 +66,6 @@ async function getUser(email) {
   if (response.status === 200) {
     return response.json();
   }
-
   return null;
 }
 

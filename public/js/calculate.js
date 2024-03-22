@@ -198,7 +198,7 @@ document.addEventListener("DOMContentLoaded", function() {
       alert("Reaction saved!");
     });
 
-    function getUsername () {
+    function getUsername() {
       return localStorage.getItem('userName') ?? 'Unknown Scientist'
     }
 
@@ -250,6 +250,9 @@ document.addEventListener("DOMContentLoaded", function() {
         `<div class="event"><span class="user-event">${userName}</span>: Made a reaction</div>` + userText.innerHTML;
     
     }
+
+    const playerNameEl = document.querySelector('.user-name');
+    playerNameEl.textContent = getUsername();
 
     let counter = 0
     setInterval(() => {
