@@ -35,6 +35,12 @@ body {
   #user-messages {
     padding-top: 0.25em;
     opacity: 0.7;
+    font-weight: bold;
+    color: blueviolet;
+  }
+  
+  #user-name {
+    font-weight: bold;
   }
 
   footer {
