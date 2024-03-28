@@ -191,10 +191,13 @@ document.addEventListener("DOMContentLoaded", function() {
         polymerase: cell6.innerHTML,
         reaction_cond: cell7.innerHTML,
       }
+
+      broadcastEvent(getUsername(), RxnStartEvent, {})
     });
 
     saveButton.addEventListener("click", function(event) {
       saveReaction();
+      broadcastEvent(getUsername(), RxnEndEvent, {})
       alert("Reaction saved!");
     });
 
@@ -271,25 +274,25 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function configureWebSocket() {
       const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
-      this.socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
-      this.socket.onopen = (event) => {
-        this.displayMsg('system', 'game', 'connected');
+      socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
+      socket.onopen = (event) => {
+        displayMsg('system', 'calculator', 'connected');
       };
-      this.socket.onclose = (event) => {
-        this.displayMsg('system', 'game', 'disconnected');
+      socket.onclose = (event) => {
+        displayMsg('system', 'calculator', 'disconnected');
       };
-      this.socket.onmessage = async (event) => {
+      socket.onmessage = async (event) => {
         const msg = JSON.parse(await event.data.text());
-        if (msg.type === GameEndEvent) {
-          this.displayMsg('player', msg.from, `scored ${msg.value.score}`);
-        } else if (msg.type === GameStartEvent) {
-          this.displayMsg('player', msg.from, `started a new game`);
+        if (msg.type === RxnEndEvent) {
+          displayMsg('scientist', msg.from, `completed their reaction`);
+        } else if (msg.type === RxnStartEvent) {
+          displayMsg('scientist', msg.from, `started a new reaction`);
         }
       };
     }
   
     function displayMsg(cls, from, msg) {
-      const chatText = document.querySelector('#player-messages');
+      const chatText = document.querySelector('#user-messages');
       chatText.innerHTML =
         `<div class="event"><span class="${cls}-event">${from}</span> ${msg}</div>` + chatText.innerHTML;
     }
@@ -300,8 +303,10 @@ document.addEventListener("DOMContentLoaded", function() {
         type: type,
         value: value,
       };
-      this.socket.send(JSON.stringify(event));
+      socket.send(JSON.stringify(event));
     }
+
+    configureWebSocket();
   });
 
 
