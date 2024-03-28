@@ -1,3 +1,6 @@
+const RxnEndEvent = 'rxnEnd'
+const RxnStartEvent = 'rxnStart'
+
 document.addEventListener("DOMContentLoaded", function() {
 
 
@@ -284,9 +287,9 @@ document.addEventListener("DOMContentLoaded", function() {
       socket.onmessage = async (event) => {
         const msg = JSON.parse(await event.data.text());
         if (msg.type === RxnEndEvent) {
-          displayMsg('scientist', msg.from, `completed their reaction`);
+          displayMsg('system', msg.from, `completed their reaction`);
         } else if (msg.type === RxnStartEvent) {
-          displayMsg('scientist', msg.from, `started a new reaction`);
+          displayMsg('system', msg.from, `started a new reaction`);
         }
       };
     }
