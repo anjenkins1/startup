@@ -1,8 +1,9 @@
-const RxnEndEvent = 'rxnEnd'
-const RxnStartEvent = 'rxnStart'
 
-document.addEventListener("DOMContentLoaded", function() {
+// document.addEventListener("DOMContentLoaded", function() {
+  const RxnEndEvent = 'rxnEnd'
+  const RxnStartEvent = 'rxnStart'
 
+  configureWebSocket();
 
     // Function to update Tm value in the UI
     function updateTm(inputElement, tmElement) {
@@ -211,9 +212,9 @@ document.addEventListener("DOMContentLoaded", function() {
     async function saveReaction() {
       const userName = getUsername();
       const newReaction = { user: userName, reaction: bufferReaction}
-      const userText = document.querySelector('#user-messages');
-      userText.innerHTML =
-      `<div class="event"><span class="user-event">${userName}</span> Made a reaction</div>` + userText.innerHTML;
+      // const userText = document.querySelector('#user-messages');
+      // userText.innerHTML =
+      // `<div class="event"><span class="user-event">${userName}</span> Made a reaction</div>` + userText.innerHTML;
 
       try {
         const response = await fetch('/api/reaction', {
@@ -250,10 +251,10 @@ document.addEventListener("DOMContentLoaded", function() {
       }
       const newReaction = { user: userName, reaction: providedReaction}
       rxns.push(newReaction)
-      localStorage.setItem('reactions', JSON.stringify(reactions))
-      const userText = document.querySelector('#user-messages');
-      userText.innerHTML =
-        `<div class="event"><span class="user-event">${userName}</span>: Made a reaction</div>` + userText.innerHTML;
+      localStorage.setItem('reactions', JSON.stringify(rxns))
+      // const userText = document.querySelector('#user-messages');
+      // userText.innerHTML =
+      //   `<div class="event"><span class="user-event">${userName}</span>: Made a reaction</div>` + userText.innerHTML;
     
     }
 
@@ -287,9 +288,9 @@ document.addEventListener("DOMContentLoaded", function() {
       socket.onmessage = async (event) => {
         const msg = JSON.parse(await event.data.text());
         if (msg.type === RxnEndEvent) {
-          displayMsg('system', msg.from, `completed their reaction`);
+          displayMsg('calculator', msg.from, `completed their reaction`);
         } else if (msg.type === RxnStartEvent) {
-          displayMsg('system', msg.from, `started a new reaction`);
+          displayMsg('calculator', msg.from, `started a new reaction`);
         }
       };
     }
@@ -309,8 +310,8 @@ document.addEventListener("DOMContentLoaded", function() {
       socket.send(JSON.stringify(event));
     }
 
-    configureWebSocket();
-  });
+
+  // });
 
 
   
