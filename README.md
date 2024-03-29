@@ -90,3 +90,12 @@ I am going to use the required technologies in the following ways.
   - **Use MongoDB to store credentials** - Stores both user and their reactions.
   - **Restricts functionality** - You cannot make any reactions until you've logged in or created an account
 
+## WebSocket deliverable
+
+### For this deliverable I used webSocket to update the when a user makes a reaction on the frontend in realtime.
+
+ - **Backend listens for WebSocket connection** - done!
+ - **Frontend makes WebSocket connection** - done!
+ - **Data sent over WebSocket connection** - done!
+ - **WebSocket data displayed** - Other users can see when a user is making reactions
+
