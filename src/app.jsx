@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 import { Login } from './login/login';
-//import { Calculate } from './calculate/calculate';
+import { Calculate } from './calculate/calculate';
 //import { Saves } from './saves/saves';
 import { About } from './about/about';
 import { AuthState } from './login/authState';
@@ -16,7 +16,7 @@ function App() {
 
     return (
         <BrowserRouter>
-            <div className="bg-light text-dark">
+            <div className="body bg-light text-dark">
                 <header className="container-fluid text-center text-light">
                     <nav className="navbar navbar-expand navbar-light">
                         <a className="navbar-brand" href="index.html">
@@ -28,14 +28,14 @@ function App() {
                                 Login
                                 </NavLink>
                             </li>
-                            {/* {authState === AuthState.Authenticated && (
+                            {authState === AuthState.Authenticated && (
                                 <li className='nav-item'>
                                 <NavLink className='nav-link' to='calculate'>
                                     Calculate
                                 </NavLink>
                                 </li>
                             )}
-                            {authState === AuthState.Authenticated && (
+                            {/* {authState === AuthState.Authenticated && (
                                 <li className='nav-item'>
                                 <NavLink className='nav-link' to='saves'>
                                     Saves
@@ -65,8 +65,8 @@ function App() {
                         }
                         exact
                     />
-                    {/* <Route path='/calculate' element={<Calculate userName={userName} />} />
-                    <Route path='/saves' element={<Saves />} /> */}
+                    <Route path='/calculate' element={<Calculate userName={userName} />} />
+                    {/* <Route path='/saves' element={<Saves />} /> */}
                     <Route path='/about' element={<About />} />
                     <Route path='*' element={<NotFound />} />
                 </Routes>
