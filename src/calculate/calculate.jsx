@@ -1,6 +1,8 @@
 import React from 'react';
 
 import Button from 'react-bootstrap/Button';
+import { Scientists } from './scientist'
+import { CalcEvent, CalcNotifier } from './calculateNotifier'
 
 export function Calculate(props) {
 
@@ -96,20 +98,50 @@ export function Calculate(props) {
             </div>
           );
         }
-    
+        
+        CalcNotifier.broadcastEvent(props.userName, CalcEvent.Start, {});
+
         setCalcConditions(middle_steps);
       };
 
+    async function save() {
+        const userName = props.userName;
+        const bufferReaction = {
+            forward_name: fPName,
+            forward_primer: fPrimer,
+            reverse_name: rPName,
+            reverse_primer: rPrimer,
+            fragment_size: productSize,
+            polymerase: polyermase,
+            reaction_cond: reactCondtions,
+          }
+
+        const newReaction = { user: userName, reaction: bufferReaction}
+
+        try {
+          const response = await fetch('/api/reaction', {
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify(newReaction),
+          });
+          const reactions = await response.json();
+          localStorage.setItem('reactions', JSON.stringify(reactions));
+        } catch {
+            let rxns = [];
+            const rxnsText = localStorage.getItem('reactions');
+            if (rxnsText) {
+              rxns = JSON.parse(rxnsText);
+            }
+            rxns.push(newReaction);
+            localStorage.setItem('reactions', JSON.stringify(reactions));
+        }
+        CalcNotifier.broadcastEvent(userName, CalcEvent.End, {})
+        alert("Reaction saved!");
+    };
+
     return (
         <main className='container-fluid text-center'>
-            <div className="users">
-                <div className="user">
-                Scientist:
-                <span className="user-name">{props.userName}</span>
-                </div>
-                Messages:
-                <div id="user-messages" />
-            </div>
+            <Scientists userName={props.userName} />
             <div className="container-fluid">
                 <div className="row justify-content-md-center text-center">
                     <h1 className="display-7">Reaction Calculator</h1>
@@ -247,7 +279,7 @@ export function Calculate(props) {
                 </div>
                 <div className="row justify-content-center p-3">
                     <div className="col text-center">
-                        <Button variant='secondary' onClick={() => logout()}>
+                        <Button variant='secondary' onClick={() => save()}>
                             Save
                         </Button>
                 </div>
