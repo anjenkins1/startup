@@ -17,10 +17,10 @@ export function Calculate(props) {
     const [rPTm, setRPTm] = React.useState(0);
 
 
-    const [polyermase, setPolymerase] = React.useState('');
+    const [polyermase, setPolymerase] = React.useState('Q5');
     const [productSize, setProductSize] = React.useState(0);
-    const [isKB, setIsKB] = React.useState('')
-    const [reactCondtions, setReactConditions] = React.useState('');
+    const [isKB, setIsKB] = React.useState('bp')
+    const [reactCondtions, setReactConditions] = React.useState('2-Step');
 
     const [calculatedConditions, setCalcConditions] = React.useState('');
 
@@ -67,23 +67,23 @@ export function Calculate(props) {
     );
 
     const calculate = () => {
-        let anneal_temp = Math.min(props.tm_F, props.tm_R);
+        let anneal_temp = Math.min(fPTm, rPTm);
         let extension_time = 60; // seconds
         let extension_temp = 68; // Celsius
     
-        if (props.pol === "Q5") {
+        if (polyermase === "Q5") {
           anneal_temp += 5;
           extension_time = 20; // seconds
           extension_temp = 72; // Celsius
         }
     
         let middle_steps;
-        if (props.rxnSteps === "2-Step") {
+        if (reactCondtions === "2-Step") {
           middle_steps = (
             <div>
               2-step, 30x:<br/>
               98C for 15 sec<br/>
-              {anneal_temp}C for {extensionTime(props.pol, props.fragSize)} seconds
+              {anneal_temp}C for {extension_time} seconds
             </div>
           );
         } else {
@@ -92,12 +92,12 @@ export function Calculate(props) {
               3-step, 30x:<br/>
               98C for 10 sec<br/>
               {anneal_temp}C for 20 seconds<br/>
-              {extension_temp}C for {extensionTime(props.pol, props.fragSize)} seconds
+              {extension_temp}C for {extension_time} seconds
             </div>
           );
         }
     
-        return middle_steps;
+        setCalcConditions(middle_steps);
       };
 
     return (
@@ -162,7 +162,7 @@ export function Calculate(props) {
                         <input 
                             className="form-control" 
                             type="text"
-                            onChange={(e) => setRPrimer(e.target.value)}
+                            onChange={(e) => handlePrimerInput(e, setRPrimer, setRPnt, setRPGC, setRPTm)}
                             id="reverse_primer" 
                         />
                     </div>
@@ -223,7 +223,7 @@ export function Calculate(props) {
                 </form>
             </div>
             <div className="row justify-content-center p-3">
-                <Button variant='primary' onClick={() => calculateRow()}>
+                <Button variant='primary' onClick={() => calculate()}>
                     Calculate
                 </Button>
             </div>
