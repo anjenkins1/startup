@@ -3,6 +3,23 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 
 export function Calculate(props) {
+
+    const [fPName, setFPName] = React.useState('');
+    const [rPName, setRPName] = React.useState('');
+    const [fPrimer, setFPrimer] = React.useState('');
+    const [rPrimer, setRPrimer] = React.useState('');
+    const [polyermase, setPolymerase] = React.useState('');
+    const [productSize, setProductSize] = React.useState(0);
+    const [reactCondtions, setReactConditions] = React.useState('');
+
+    const pcrLenSelector = (event) => {
+        if (event.target.value = "kb") {
+            setProductSize(productSize * 1000)
+        } 
+        else {
+            setProductSize(productSize)
+        }
+    }
     return (
         <main className='container-fluid text-center'>
             <div className="users">
@@ -21,11 +38,21 @@ export function Calculate(props) {
                 <div className="row justify-content-center p-3">
                     <div className="col-md-3">
                         <label htmlFor="forward_primer_name" className="form-label">Forward Primer Name</label>
-                        <input type="text" className="form-control" id="forward_primer_name" />
+                        <input 
+                            className="form-control" 
+                            type="text"
+                            onChange={(e) => setFPName(e.target.value)}
+                            id="forward_primer_name" 
+                        />
                     </div>
                     <div className="col-md-4">
                         <label htmlFor="forward_primer" className="form-label">Forward Primer</label>
-                        <input type="text" className="form-control" id="forward_primer" />
+                        <input 
+                            className="form-control" 
+                            type="text"
+                            onChange={(e) => setFPrimer(e.target.value)}
+                            id="forward_primer" 
+                        />
                     </div>
                     <div className="col-md-3">
                         <label htmlFor="forward_data" className="form-label"><strong>Forward Data</strong></label>
@@ -43,11 +70,21 @@ export function Calculate(props) {
                 <div className="row justify-content-center p-3">
                     <div className="col-md-3">
                         <label htmlFor="reverse_primer_name" className="form-label">Reverse Primer Name</label>
-                        <input type="text" className="form-control" id="reverse_primer_name" />
+                        <input 
+                            className="form-control" 
+                            type="text"
+                            onChange={(e) => setRPName(e.target.value)}
+                            id="reverse_primer_name" 
+                        />
                     </div>
                     <div className="col-md-4">
                         <label htmlFor="reverse_primer" className="form-label">Reverse Primer</label>
-                        <input type="text" className="form-control" id="reverse_primer" />
+                        <input 
+                            className="form-control" 
+                            type="text"
+                            onChange={(e) => setRPrimer(e.target.value)}
+                            id="reverse_primer" 
+                        />
                     </div>
                     <div className="col-md-3">
                         <label htmlFor="reverse_data" className="form-label"><strong>Reverse Data</strong></label>
@@ -65,22 +102,38 @@ export function Calculate(props) {
                 <div className="row justify-content-center text-center p-3">
                     <div className="col-md-4">
                         <label htmlFor="poly_select">Choose a polymerase:</label>
-                        <select name="poly_select" id="poly_select">
+                        <select 
+                            name="poly_select" 
+                            id="poly_select"
+                            value={polyermase}
+                            onChange={(e) => setPolymerase(e.target.value)}
+                            >
                             <option value="Q5">Q5</option>
                             <option value="TAQ">TAQ</option>
                         </select>
                     </div>
                     <div className="col-md-4">
                         <label htmlFor="pcr_len">Expected Product Size:</label>
-                        <input type="int" id="pcr_len" />
-                        <select name="pcr_len_select" id="pcr_len_select">
+                        <input 
+                            type="int" 
+                            id="pcr_len" 
+                            onChange={(e) => setProductSize(e.target.value)}
+                            />
+                        <select 
+                            name="pcr_len_select" 
+                            id="pcr_len_select"
+                            onChange={pcrLenSelector}>
                             <option value="kb">kb</option>
                             <option value="bp">bp</option>
                         </select>
                     </div>
                     <div className="col-md-4">
                         <label className="label">Reaction Conditions:</label>
-                        <select name="rxn_select" id="rxn_select">
+                        <select 
+                            name="rxn_select" 
+                            id="rxn_select"
+                            onChange={(e) => setReactConditions(e.target.value)}
+                            >
                             <option value="2-Step">2-Step</option>
                             <option value="3-Step">3-Step</option>
                         </select>
