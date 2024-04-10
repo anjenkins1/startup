@@ -22,14 +22,16 @@ export function Calculate(props) {
     const [isKB, setIsKB] = React.useState('')
     const [reactCondtions, setReactConditions] = React.useState('');
 
+    const [calculatedConditions, setCalcConditions] = React.useState('');
+
     const pcrLenSelector = (event) => {
         setIsKB(event.target.value)
-        if (event.target.value = "kb") {
-            setProductSize(productSize * 1000)
-        } 
+        if (event.target.value === "kb") {
+             setProductSize(productSize * 1000)
+         } 
         else {
-            setProductSize(productSize)
-        }
+             setProductSize(productSize / 1000)
+         }
     }
 
     const calculateValues = (primer, setPnt, setPGC, setPTm) => {
@@ -52,7 +54,51 @@ export function Calculate(props) {
         calculateValues(primer, setPnt, setPGC, setPTm);
     };
 
+    const calculateRow = (
+        <tr>
+            <td>{fPName}</td>
+            <td>{fPrimer}</td>
+            <td>{rPName}</td>
+            <td>{rPrimer}</td>
+            <td>{productSize}</td>
+            <td>{polyermase}</td>
+            <td>{reactCondtions}<br/>{calculatedConditions}</td>
+        </tr>
+    );
+
+    const calculate = () => {
+        let anneal_temp = Math.min(props.tm_F, props.tm_R);
+        let extension_time = 60; // seconds
+        let extension_temp = 68; // Celsius
     
+        if (props.pol === "Q5") {
+          anneal_temp += 5;
+          extension_time = 20; // seconds
+          extension_temp = 72; // Celsius
+        }
+    
+        let middle_steps;
+        if (props.rxnSteps === "2-Step") {
+          middle_steps = (
+            <div>
+              2-step, 30x:<br/>
+              98C for 15 sec<br/>
+              {anneal_temp}C for {extensionTime(props.pol, props.fragSize)} seconds
+            </div>
+          );
+        } else {
+          middle_steps = (
+            <div>
+              3-step, 30x:<br/>
+              98C for 10 sec<br/>
+              {anneal_temp}C for 20 seconds<br/>
+              {extension_temp}C for {extensionTime(props.pol, props.fragSize)} seconds
+            </div>
+          );
+        }
+    
+        return middle_steps;
+      };
 
     return (
         <main className='container-fluid text-center'>
@@ -156,10 +202,10 @@ export function Calculate(props) {
                         <select 
                             name="pcr_len_select" 
                             id="pcr_len_select"
-                            value={isKB}
+                            // value={isKB}
                             onChange={pcrLenSelector}>
-                            <option value="kb">kb</option>
                             <option value="bp">bp</option>
+                            <option value="kb">kb</option>
                         </select>
                     </div>
                     <div className="col-md-4">
@@ -177,31 +223,25 @@ export function Calculate(props) {
                 </form>
             </div>
             <div className="row justify-content-center p-3">
-                <Button variant='primary' onClick={() => navigate('/calculate')}>
+                <Button variant='primary' onClick={() => calculateRow()}>
                     Calculate
                 </Button>
             </div>
             <div className="row justify-content-center text-center p-3">
             <div className="table-responsive">
                 <table className="table" id="tbl_saves">
-                <tr>
-                    <th>Forward Primer Name</th>
-                    <th>Forward Primer</th>
-                    <th>Reverse Primer Name</th>
-                    <th>Reverse Primer</th>
-                    <th>Fragment Size (bp)</th>
-                    <th>Polymerase Used</th>
-                    <th>Reaction Conditions</th>
-                </tr>
-                <tr>
-                    <td>sfGFP_F</td>
-                    <td>AGCTTTGCCAATG</td>
-                    <td>sfGFP_R</td>
-                    <td>GTCACCCTTGTAAA</td>
-                    <td>789</td>
-                    <td>Q5</td>
-                    <td>2-Step:<br/>68C for 30 seconds</td>
-                </tr>
+                    <thead>
+                        <tr>
+                            <th>Forward Primer Name</th>
+                            <th>Forward Primer</th>
+                            <th>Reverse Primer Name</th>
+                            <th>Reverse Primer</th>
+                            <th>Fragment Size (bp)</th>
+                            <th>Polymerase Used</th>
+                            <th>Reaction Conditions</th>
+                        </tr>
+                    </thead>
+                    <tbody id='calculated_row'>{calculateRow}</tbody>
                 </table>
             </div>
                 </div>
