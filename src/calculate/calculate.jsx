@@ -5,14 +5,25 @@ import Button from 'react-bootstrap/Button';
 export function Calculate(props) {
 
     const [fPName, setFPName] = React.useState('');
-    const [rPName, setRPName] = React.useState('');
     const [fPrimer, setFPrimer] = React.useState('');
+    const [fPnt, setFPnt] = React.useState(0);
+    const [fPGC, setFPGC] = React.useState(0);
+    const [fPTm, setFPTm] = React.useState(0);
+
+    const [rPName, setRPName] = React.useState('');
     const [rPrimer, setRPrimer] = React.useState('');
+    const [rPnt, setRPnt] = React.useState(0);
+    const [rPGC, setRPGC] = React.useState(0);
+    const [rPTm, setRPTm] = React.useState(0);
+
+
     const [polyermase, setPolymerase] = React.useState('');
     const [productSize, setProductSize] = React.useState(0);
+    const [isKB, setIsKB] = React.useState('')
     const [reactCondtions, setReactConditions] = React.useState('');
 
     const pcrLenSelector = (event) => {
+        setIsKB(event.target.value)
         if (event.target.value = "kb") {
             setProductSize(productSize * 1000)
         } 
@@ -20,6 +31,29 @@ export function Calculate(props) {
             setProductSize(productSize)
         }
     }
+
+    const calculateValues = (primer, setPnt, setPGC, setPTm) => {
+        const ntCount = primer.length;
+        const gcCount = (primer.match(/[GCgc]/g) || []).length;
+        const tm = calculateTm(gcCount, ntCount);
+        setPnt(ntCount);
+        setPGC((gcCount / ntCount) * 100);
+        setPTm(tm);
+      };
+    
+    const calculateTm = (gcCount, ntCount) => {
+        const tm = 64.9 + 41 * (gcCount - 16.4) / (ntCount);
+        return tm;
+    };
+
+    const handlePrimerInput = (e, setPrimer, setPnt, setPGC, setPTm) => {
+        const primer = e.target.value;
+        setPrimer(primer);
+        calculateValues(primer, setPnt, setPGC, setPTm);
+    };
+
+    
+
     return (
         <main className='container-fluid text-center'>
             <div className="users">
@@ -50,7 +84,7 @@ export function Calculate(props) {
                         <input 
                             className="form-control" 
                             type="text"
-                            onChange={(e) => setFPrimer(e.target.value)}
+                            onChange={(e) => handlePrimerInput(e, setFPrimer, setFPnt, setFPGC, setFPTm)}
                             id="forward_primer" 
                         />
                     </div>
@@ -58,11 +92,11 @@ export function Calculate(props) {
                         <label htmlFor="forward_data" className="form-label"><strong>Forward Data</strong></label>
                             <div className="card">
                                 <div className="card-body">
-                                <strong id="forward_nt">-- nt</strong>
+                                <strong id="forward_nt">{fPnt} nt</strong>
                                 <br></br>
-                                <strong id="forward_gc">-- %GC</strong>
+                                <strong id="forward_gc">{fPGC.toFixed(0)} %GC</strong>
                                 <br></br>
-                                <strong  id="forward_tm">-- Tm(C)</strong>
+                                <strong  id="forward_tm">{fPTm.toFixed(0)} Tm(C)</strong>
                                 </div>
                             </div>
                     </div>
@@ -90,11 +124,11 @@ export function Calculate(props) {
                         <label htmlFor="reverse_data" className="form-label"><strong>Reverse Data</strong></label>
                             <div className="card">
                                 <div className="card-body">
-                                <strong id="reverse_nt">-- nt</strong>
+                                <strong id="reverse_nt">{rPnt} nt</strong>
                                 <br/>
-                                <strong id="reverse_gc">-- %GC</strong>
+                                <strong id="reverse_gc">{rPGC.toFixed(0)} %GC</strong>
                                 <br/>
-                                <strong id="reverse_tm">-- Tm(C)</strong>
+                                <strong id="reverse_tm">{rPTm.toFixed(0)} Tm(C)</strong>
                                 </div>
                             </div>
                         </div>
@@ -122,6 +156,7 @@ export function Calculate(props) {
                         <select 
                             name="pcr_len_select" 
                             id="pcr_len_select"
+                            value={isKB}
                             onChange={pcrLenSelector}>
                             <option value="kb">kb</option>
                             <option value="bp">bp</option>
