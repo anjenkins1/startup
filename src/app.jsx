@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Link, NavLink, Route, Routes } from 'react-router-dom';
 import { Login } from './login/login';
 import { Calculate } from './calculate/calculate';
 import { Saves } from './saves/saves';
@@ -19,9 +19,9 @@ function App() {
             <div className="body bg-light text-dark">
                 <header className="container-fluid text-center text-light">
                     <nav className="navbar navbar-expand navbar-light">
-                        <a className="navbar-brand" href="index.html">
-                            <img src="assets/favicon.png" width="50" height="50"/>
-                        </a>
+                        <Link to='' className="navbar-brand">
+                            <img src="/favicon.png" width="50" height="50" alt="Logo"/>
+                        </Link>
                         <menu className="navbar-nav">
                             <li className='nav-item'>
                                 <NavLink className='nav-link' to=''>

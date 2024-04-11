@@ -13,11 +13,11 @@ Sick of flipping between 10 different applications for designing bio labs PCR pr
 ### Design
 Home page designed with login and ability to enter pcr primers to get your reaction conditions
 
-![home](assets/home_page.png)
+![home](public/home_page.png)
 
 Reaction page shows previously computed conditions
 
-![reactions](assets/reaction_page.png)
+![reactions](public/reaction_page.png)
 
 ### Key Features
 
@@ -99,3 +99,11 @@ I am going to use the required technologies in the following ways.
  - **Data sent over WebSocket connection** - done!
  - **WebSocket data displayed** - Other users can see when a user is making reactions
 
+## React deliverable
+
+### For this deliverable I converted the application over to use React
+
+- **Bundled and transpiled** - done!
+- **Components** - Login, calculate, and saves are all components
+- **Router** - Routing between login, calculate, and save components.
+- **Hooks** - useEffect used to grab the saves upon loading the component
