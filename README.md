@@ -106,4 +106,4 @@ I am going to use the required technologies in the following ways.
 - **Bundled and transpiled** - done!
 - **Components** - Login, calculate, and saves are all components
 - **Router** - Routing between login, calculate, and save components.
-- **Hooks** - useEffect used to grab the saves upon loading the component
+- **Hooks** - useEffect used to grab the saves upon loading the component, and useEffect used for calculator websocket notifier
