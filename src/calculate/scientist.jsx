@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { CalcEvent, CalcNotifier } from './calculateNotifier';
-//import './players.css';
+import './scientist.css';
 
 export function Scientists(props) {
   const userName = props.userName;
@@ -43,7 +43,7 @@ export function Scientists(props) {
   }
 
   return (
-    <div className='Scientists'>
+    <div className='Scientists' >
       Scientist<br/>
       <span className='scientists-name'>{userName}</span>
       <div id='scientists-messages'>{createMessageArray()}</div>

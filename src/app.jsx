@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 import { Login } from './login/login';
 import { Calculate } from './calculate/calculate';
-//import { Saves } from './saves/saves';
+import { Saves } from './saves/saves';
 import { About } from './about/about';
 import { AuthState } from './login/authState';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -35,13 +35,13 @@ function App() {
                                 </NavLink>
                                 </li>
                             )}
-                            {/* {authState === AuthState.Authenticated && (
+                            {authState === AuthState.Authenticated && (
                                 <li className='nav-item'>
                                 <NavLink className='nav-link' to='saves'>
                                     Saves
                                 </NavLink>
                                 </li>
-                            )} */}
+                            )}
                             <li className='nav-item'>
                                 <NavLink className='nav-link' to='about'>
                                 About
@@ -66,7 +66,7 @@ function App() {
                         exact
                     />
                     <Route path='/calculate' element={<Calculate userName={userName} />} />
-                    {/* <Route path='/saves' element={<Saves />} /> */}
+                    <Route path='/saves' element={<Saves />} />
                     <Route path='/about' element={<About />} />
                     <Route path='*' element={<NotFound />} />
                 </Routes>

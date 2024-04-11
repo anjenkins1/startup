@@ -140,8 +140,8 @@ export function Calculate(props) {
     };
 
     return (
-        <main className='container-fluid text-center'>
-            <Scientists userName={props.userName} />
+        <main className='container-fluid'>
+            <Scientists userName={props.userName}/>
             <div className="container-fluid">
                 <div className="row justify-content-md-center text-center">
                     <h1 className="display-7">Reaction Calculator</h1>
